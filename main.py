@@ -142,7 +142,7 @@ def command_line(command):
     else:
         REPLYBOX.delete(1.0, END)
         # display os.system output in REPLYBOX
-        command = command + ">cache/answer.txt"
+        command = command + "> cache/answer.txt"
         os.system(command)
         with open('cache/answer.txt') as f:
             for line in f:
