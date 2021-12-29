@@ -1,7 +1,16 @@
-# CRISPYEDITOR
+## Why not develop surf-exel instead of writing a new editor?
 
-a very basic editor.
+Here are the problems I face with surf-exel.
 
+* Doesnt compile nicely using pyinstaller on Ubuntu
+* GTTS doesnt work properly
+* It doesnt have syntax highlighting
+* The code is very.... flimsy.
+* I have tried many times on different computers to add features but it just doesnt work.
+
+
+All in all, I want to make an editor that just works. 
 ```
-I am very frusterated with surf-exel. it never compiles, never works, thats why i am writing a new text editor
+This time... I will try my best to code on the editor itself.
 ```
+Thank you!
