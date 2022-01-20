@@ -1,9 +1,9 @@
 {
-    "font": "Comic Sans MS",
+    "font": "bold 12px Arial",
     "size": 12,
     "text": "HELLO TO CRISPYEDITOR",
-    "background": "white",
-    "textcolor": "black",
+    "background": "black",
+    "textcolor": "white",
     "tabsize": 4,
     "pysyntax": true
 
