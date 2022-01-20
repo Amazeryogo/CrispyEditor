@@ -14,8 +14,6 @@ file_name = "cache/Untitled.txt"
 with open("config/config.json") as f:
     config = json.load(f)
 
-
-
 font = config["font"]
 size = config["size"]
 text = config["text"]
@@ -26,7 +24,6 @@ tabsize = config["tabsize"]
 global pysyntax
 pysyntax = config["pysyntax"]
 
-
 root = Tk()
 root.geometry("1000x800")
 title = "CrispyEditor"
@@ -34,20 +31,18 @@ root.title(title)
 root.minsize(height=250, width=350)
 root.maxsize(height=1000, width=1000)
 
-
-
 # adding scrollbar
 scrollbar = Scrollbar(root)
 
 # packing scrollbar
 scrollbar.pack(side=RIGHT,
-			fill=Y)
+               fill=Y)
 
-font = (font,size)
+font = (font, size)
 
 # set default text
 text_info = Text(root,
-				yscrollcommand=scrollbar.set)
+                 yscrollcommand=scrollbar.set)
 text_info.configure(font=font, bg=background, fg=textcolor)
 text_info.insert(END, text)
 
@@ -55,6 +50,7 @@ text_info.insert(END, text)
 def tab(arg):
     text_info.insert(END, " " * tabsize)
     return 'break'
+
 
 text_info.bind("<Tab>", tab)
 text_info.pack(fill=BOTH)
@@ -72,23 +68,16 @@ cdg.tagdefs['FUNCTION'] = {'foreground': 'blue', 'background': 'background'}
 cdg.tagdefs['VARIABLE'] = {'foreground': 'red', 'background': 'background'}
 cdg.tagdefs['CLASS'] = {'foreground': 'blue', 'background': 'background'}
 
-
 # configuring the scrollbar
 scrollbar.config(command=text_info.yview)
-
-
-
-
-
-
 
 
 def load_file(*args):
     global file_name
     file_name = filedialog.askopenfilename()
-    text_info.delete(1.0,END)
+    text_info.delete(1.0, END)
     text_info.insert(END, open(file_name).read())
-    with open('cache/openedfiles.txt','a') as f:
+    with open('cache/openedfiles.txt', 'a') as f:
         f.write(file_name)
         f.write('\n')
         f.close()
@@ -99,11 +88,12 @@ def load_file(*args):
     else:
         pass
 
+
 def load_certian_file(file_name):
     try:
-        text_info.delete(1.0,END)
+        text_info.delete(1.0, END)
         text_info.insert(END, open(file_name).read())
-        with open('cache/openedfiles.txt','a') as f:
+        with open('cache/openedfiles.txt', 'a') as f:
             f.write(file_name)
             f.write('\n')
             f.close()
@@ -120,6 +110,7 @@ def load_certian_file(file_name):
         for file in os.listdir(file_name):
             folder.insert(dir_location, file)
 
+
 def save_file():
     file = open(file_name, "w")
     file.write(text_info.get(1.0, END))
@@ -132,8 +123,10 @@ def save_as():
     file.write(text_info.get(1.0, END))
     file.close()
 
+
 def new_file():
     text_info.delete(1.0, END)
+
 
 def command_line(command):
     REPLYBOX.delete(1.0, END)
@@ -141,10 +134,10 @@ def command_line(command):
         with open('cache/openedfiles.txt') as f:
             for line in f:
                 REPLYBOX.insert(END, line)
-    elif command =="ls":
+    elif command == "ls":
         os.system("ls")
     elif command == "":
-         # clear REPLYBOX
+        # clear REPLYBOX
         REPLYBOX.delete(1.0, END)
     elif command == "clear":
         # clear REPLYBOX
@@ -160,13 +153,13 @@ def command_line(command):
     elif command == "new":
         new_file()
     elif command == "help":
-        REPLYBOX.insert(END, "cached - list all cached files\n") #
-        REPLYBOX.insert(END, "clear - clear REPLYBOX\n")#
-        REPLYBOX.insert(END, "help - list commands\n") #
-        REPLYBOX.insert(END, "quit - quit CrispyEditor\n")#
-        REPLYBOX.insert(END, "save - save file\n")#
-        REPLYBOX.insert(END, "saveas - save as file\n")#
-        REPLYBOX.insert(END, "open - open file\n")#
+        REPLYBOX.insert(END, "cached - list all cached files\n")  #
+        REPLYBOX.insert(END, "clear - clear REPLYBOX\n")  #
+        REPLYBOX.insert(END, "help - list commands\n")  #
+        REPLYBOX.insert(END, "quit - quit CrispyEditor\n")  #
+        REPLYBOX.insert(END, "save - save file\n")  #
+        REPLYBOX.insert(END, "saveas - save as file\n")  #
+        REPLYBOX.insert(END, "open - open file\n")  #
     else:
         REPLYBOX.delete(1.0, END)
         # display os.system output in REPLYBOX
@@ -178,6 +171,7 @@ def command_line(command):
             f.close()
         os.system("rm cache/answer.txt")
 
+
 # add a folder widget to show the files in the current directory
 folder = Listbox(root, height=30, width=50)
 folder.configure(font=font, bg=background, fg=textcolor)
@@ -185,21 +179,16 @@ folder.pack(side=LEFT, fill=X)
 for file in os.listdir():
     filenamex = file
     folder.insert(END, filenamex)
-    
-    
-    
+
 # if a file is selected in the folder widget, load it
 folder.bind("<<ListboxSelect>>", lambda event: load_certian_file(folder.get(folder.curselection())))
 
-
-    
-                
-#Add a basic commandline to open settings and cached stuff 
+# Add a basic commandline to open settings and cached stuff
 COMMANDBOX = Entry(root)
 COMMANDBOX.insert(END, "Write a command here")
 COMMANDBOX.configure(font=font, bg=background, fg=textcolor)
 COMMANDBOX.pack(side=BOTTOM, fill=X)
-#add a widget that shows the commands given in COMMANDBOX
+# add a widget that shows the commands given in COMMANDBOX
 COMMANDBOX.bind("<Return>", lambda event: command_line(COMMANDBOX.get()))
 
 REPLYBOX = Text(root, height=30, width=50)
@@ -207,10 +196,7 @@ REPLYBOX.insert(END, "CrispyCommandLine")
 REPLYBOX.configure(font=font, bg=background, fg=textcolor)
 REPLYBOX.pack(side=BOTTOM, fill=X)
 
-
-
-
-#add a menu for saving and opening
+# add a menu for saving and opening
 menu_bar = Menu(root)
 root.config(menu=menu_bar)
 file_menu = Menu(menu_bar)
@@ -220,22 +206,21 @@ file_menu.add_command(label="Save", command=save_file)
 file_menu.add_command(label="Save As", command=save_as)
 file_menu.add_command(label="New", command=new_file)
 
-#open the last file in cache/openedfiles.txt
+# open the last file in cache/openedfiles.txt
 with open('cache/openedfiles.txt') as f:
     try:
         # load the last file in cache/openedfiles.txt
-            file_name = f.readlines()[-1]
-            file_name = file_name.strip('\n')
-            text_info.delete(1.0,END)
-            text_info.insert(END, open(file_name).read())
-            # if extension is .py turn syntax on
-            if file_name.endswith(".py"):
-                ip.Percolator(text_info).insertfilter(cdg)
-            else:
-                pass
-            f.close()
+        file_name = f.readlines()[-1]
+        file_name = file_name.strip('\n')
+        text_info.delete(1.0, END)
+        text_info.insert(END, open(file_name).read())
+        # if extension is .py turn syntax on
+        if file_name.endswith(".py"):
+            ip.Percolator(text_info).insertfilter(cdg)
+        else:
+            pass
+        f.close()
     except IndexError:
         pass
-
 
 root.mainloop()
