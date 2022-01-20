@@ -1,9 +1,0 @@
-README.md
-main.py
-main.py
-LICENSE
-run.sh
-LICENSE
-main.py
-main.py
-LICENSE
